@@ -1434,11 +1434,48 @@
             gap: 20px;
         }
 
-        /* Visual gauges */
-        .policy-visual-bar {
+        /* Footer styling - Refined with centering, beautiful padding, glowing gold stars */
+        footer {
+            margin-top: 60px;
+            padding: 40px 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 -10px 30px rgba(157, 141, 242, 0.05);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-stars {
+            color: var(--accent-dark);
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(255, 211, 79, 0.5);
+            animation: pulseStar 1.5s infinite alternate;
+        }
+
+        footer p {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        footer .dept-text {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-family: var(--font-body);
+            margin: 0;
         }
 
         /* Animations */
@@ -2253,7 +2290,7 @@
     </div>
 
     <!-- Centered & Spaced Footer with Glowing gold stars -->
-    <footer class="glass-card">
+    <footer>
         <div class="footer-stars">
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
@@ -2675,7 +2712,7 @@
                     analysis: "Chỉ nêu yêu cầu chung chung. Kết quả AI thường trả ra đúng ý chính nhưng dung lượng dài dòng, dễ lan man và dễ bỏ sót các bằng chứng quan trọng nhất."
                 },
                 "level2": {
-                    prompt: `<span class="code-comment"># Bổ dung các giới hạn ràng buộc (Constraints)</span>\n<span class="code-method">summarize_with_constraints</span>(\n    length=<span class="code-string">"200 words"</span>,\n    style=<span class="code-string">"bullet points"</span>,\n    prompt=<span class="code-string">"Hãy tóm tắt lại văn bản vừa rồi trong khoảng 200 chữ. Tập trung vào các luận điểm chính và bằng chứng quan trọng nhất. Sử dụng các dấu gạch đầu dòng"</span>\n)`,
+                    prompt: `<span class="code-comment"># Bổ sung các giới hạn ràng buộc (Constraints)</span>\n<span class="code-method">summarize_with_constraints</span>(\n    length=<span class="code-string">"200 words"</span>,\n    style=<span class="code-string">"bullet points"</span>,\n    prompt=<span class="code-string">"Hãy tóm tắt lại văn bản vừa rồi trong khoảng 200 chữ. Tập trung vào các luận điểm chính và bằng chứng quan trọng nhất. Sử dụng các dấu gạch đầu dòng"</span>\n)`,
                     analysis: "Bổ sung rõ ràng các giới hạn độ dài (constraints) và yêu cầu định dạng đầu ra. Lượng thông tin thừa giảm đáng kể, kết quả ngắn gọn và dễ khai thác nhanh."
                 },
                 "level3": {
