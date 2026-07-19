@@ -24,11 +24,13 @@
             --font-body: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Base & Background Styling */
-        * {
-            box-sizing: border-box;
+        /* Base & Background Styling - Anti horizontal scroll overflow */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             scroll-behavior: smooth;
         }
 
@@ -38,7 +40,6 @@
             background: url('back.jpg') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
-            overflow-x: hidden;
             position: relative;
         }
 
@@ -51,11 +52,23 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, rgba(230, 215, 255, 0.5) 0%, rgba(255, 235, 240, 0.4) 100%);
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
         }
 
-        /* Sparkle trail canvas for mouse interaction */
+        /* Star background decorations container */
+        .bg-decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Magic Star Trails Canvas */
         #sparkle-canvas {
             position: fixed;
             top: 0;
@@ -89,20 +102,32 @@
             font-weight: 700;
         }
 
-        /* Header / Navigation */
+        /* Stable Header / Navigation Fixed at the Top */
         header {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            padding: 15px 30px;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            box-shadow: 0 4px 20px rgba(157, 141, 242, 0.05);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        /* Scrolled state for Header */
+        header.scrolled {
+            padding: 12px 40px;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(157, 141, 242, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .logo {
@@ -112,6 +137,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            font-family: var(--font-display);
+            font-weight: 700;
         }
 
         .logo i {
@@ -122,28 +149,28 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         nav a {
             text-decoration: none;
             color: var(--text-main);
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.95rem;
             padding: 8px 16px;
             border-radius: 20px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         nav a:hover {
             background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
+            transform: translateY(-1px);
         }
 
         .btn-drive {
             background: linear-gradient(135deg, var(--primary) 0%, #b19ffb 100%);
             color: white !important;
-            box-shadow: 0 4px 15px rgba(157, 141, 242, 0.4);
+            box-shadow: 0 4px 15px rgba(157, 141, 242, 0.3);
             border: none;
             display: flex;
             align-items: center;
@@ -152,11 +179,11 @@
         }
 
         .btn-drive:hover {
-            box-shadow: 0 6px 20px rgba(157, 141, 242, 0.6);
-            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(157, 141, 242, 0.5);
+            transform: translateY(-2px) !important;
         }
 
-        /* Main Container setup */
+        /* Main Container setup with proper Top Padding for Fixed Menu */
         main {
             max-width: 1200px;
             margin: 120px auto 60px;
@@ -164,6 +191,7 @@
             display: flex;
             flex-direction: column;
             gap: 60px;
+            box-sizing: border-box;
         }
 
         /* Hero Section */
@@ -172,7 +200,7 @@
             grid-template-columns: 1.2fr 1fr;
             gap: 40px;
             align-items: center;
-            min-height: 75vh;
+            min-height: 70vh;
             padding: 40px;
         }
 
@@ -197,7 +225,7 @@
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             line-height: 1.2;
             background: linear-gradient(135deg, #4b3894 0%, #8352ad 100%);
             -webkit-background-clip: text;
@@ -245,8 +273,8 @@
 
         .avatar-wrapper {
             position: relative;
-            width: 320px;
-            height: 320px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             padding: 12px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
@@ -473,7 +501,7 @@
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             max-width: 850px;
             width: 100%;
             max-height: 85vh;
@@ -679,6 +707,7 @@
         .principle-content h4 {
             color: #4b3894;
             font-size: 1.1rem;
+            margin-bottom: 2px;
         }
 
         .principle-content p {
@@ -760,13 +789,12 @@
             animation: pulseStar 1.5s infinite alternate;
         }
 
-        /* Floating decoration elements style matching back.jpg */
+        /* Floating decorations inside of a fixed background container */
         .floating-star {
             position: absolute;
             color: var(--accent);
             opacity: 0.6;
             pointer-events: none;
-            z-index: 1;
         }
 
         /* Animations Definition */
@@ -808,12 +836,19 @@
 
         /* Responsive Setup */
         @media (max-width: 1024px) {
+            header {
+                padding: 15px 30px;
+            }
+            header.scrolled {
+                padding: 10px 30px;
+            }
             .timeline-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             #hero {
                 grid-template-columns: 1fr;
                 text-align: center;
+                padding-top: 60px;
             }
             .hero-text {
                 align-items: center;
@@ -830,8 +865,11 @@
             header {
                 padding: 12px 20px;
             }
+            header.scrolled {
+                padding: 8px 20px;
+            }
             nav {
-                display: none; /* simple toggle could be implemented but kept brief */
+                display: none; /* Auto-safe for basic viewports */
             }
             .timeline-grid {
                 grid-template-columns: 1fr;
@@ -853,17 +891,19 @@
     <!-- Magic Star Trails Canvas -->
     <canvas id="sparkle-canvas"></canvas>
 
-    <!-- Starry background floating items (Decors in the style of back.jpg) -->
-    <div class="floating-star" style="top: 15%; left: 8%; font-size: 24px; animation: sparklePulse 4s infinite 1s;"><i class="fa-solid fa-star"></i></div>
-    <div class="floating-star" style="top: 25%; right: 12%; font-size: 18px; animation: sparklePulse 3s infinite 0.5s;"><i class="fa-solid fa-star"></i></div>
-    <div class="floating-star" style="bottom: 30%; left: 5%; font-size: 20px; animation: sparklePulse 5s infinite 2s;"><i class="fa-solid fa-star"></i></div>
-    <div class="floating-star" style="bottom: 15%; right: 10%; font-size: 26px; animation: sparklePulse 4s infinite 1.5s;"><i class="fa-solid fa-star"></i></div>
+    <!-- Fixed background containers to prevent vertical pushes and dynamic shaking -->
+    <div class="bg-decorations">
+        <div class="floating-star" style="top: 15%; left: 8%; font-size: 24px; animation: sparklePulse 4s infinite 1s;"><i class="fa-solid fa-star"></i></div>
+        <div class="floating-star" style="top: 25%; right: 12%; font-size: 18px; animation: sparklePulse 3s infinite 0.5s;"><i class="fa-solid fa-star"></i></div>
+        <div class="floating-star" style="bottom: 30%; left: 5%; font-size: 20px; animation: sparklePulse 5s infinite 2s;"><i class="fa-solid fa-star"></i></div>
+        <div class="floating-star" style="bottom: 15%; right: 10%; font-size: 26px; animation: sparklePulse 4s infinite 1.5s;"><i class="fa-solid fa-star"></i></div>
+    </div>
 
-    <!-- Dreamy Glassmorphism Header -->
-    <header class="glass-card">
+    <!-- Dreamy Glassmorphism Header (Stable Docked layout) -->
+    <header id="header-menu">
         <a href="#" class="logo">
             <i class="fa-solid fa-wand-magic-sparkles"></i>
-            <span style="font-family: var(--font-display); font-weight: 700;">Giang's Space</span>
+            <span>Giang's Space</span>
         </a>
         <nav>
             <a href="#hero">Khám phá</a>
@@ -1408,6 +1448,16 @@
 
     <!-- Interactive JS scripts -->
     <script>
+        // Track Scroll event for Header stability & styling transition
+        const headerElement = document.getElementById('header-menu');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                headerElement.classList.add('scrolled');
+            } else {
+                headerElement.classList.remove('scrolled');
+            }
+        });
+
         // Sparkles trail on mouse movement
         const canvas = document.getElementById('sparkle-canvas');
         const ctx = canvas.getContext('2d');
